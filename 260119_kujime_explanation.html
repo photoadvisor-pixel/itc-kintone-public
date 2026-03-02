@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCセンターからKintoneへの情報連携効率化ツールのご提案</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px 60px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #0056b3;
+            border-left: 5px solid #0056b3;
+            padding-left: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            background-color: #f0f7ff;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #444;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #d32f2f;
+            background-color: #fff8e1;
+            padding: 0 4px;
+        }
+
+        .safety-box {
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fafffb;
+            margin-top: 20px;
+        }
+
+        .safety-box h2 {
+            border-left: none;
+            background-color: transparent;
+            color: #28a745;
+            margin-top: 0;
+            padding-left: 0;
+            border-bottom: 1px solid #28a745;
+            padding-bottom: 10px;
+        }
+
+        .safety-box h1,
+        .safety-box h2 {
+            /* Reset styles specifically for inside box if needed, but h2 is overridden above */
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: right;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 25px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="260119_infog.png" alt="Concept Infographic"
+            style="width: 100%; height: auto; display: block; margin-bottom: 20px; border-radius: 4px;">
+        <h1>BCセンターからKintoneへの情報連携効率化ツールのご提案</h1>
+
+        <section>
+            <h2>はじめに</h2>
+            <p>現在、BCセンター（べんりカモ）で受け付けた体験者様の情報をKintoneへ登録する際、手作業でのコピー＆ペーストを行っております。この作業の効率化と正確性向上を目的として、ブラウザ上で動作する簡易ツールの導入をご提案させていただきます。
+            </p>
+        </section>
+
+        <section>
+            <h2>現状の課題</h2>
+            <p>体験申し込み発生時、以下の手順で登録作業を行っています。</p>
+            <ol>
+                <li>BCセンターの画面を開く</li>
+                <li>各項目（氏名、住所、電話番号、きっかけ、要望など）を一つずつコピー</li>
+                <li>Kintoneの画面を開き、該当項目へペースト</li>
+            </ol>
+
+            <h3>課題点:</h3>
+            <ul>
+                <li><strong>時間がかかる:</strong> 項目数が多く（15項目以上）、1件あたりの登録に時間を要します。</li>
+                <li><strong>転記ミスのリスク:</strong> 手作業のため、コピー漏れや貼り付け間違いが発生する可能性があります。</li>
+                <li><strong>心理的負担:</strong> 単純作業の繰り返しはストレスとなり、他の業務への集中力を削ぐ要因となります。</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>ご提案：Kintoneかんたん連携ツール（ブックマークレット）</h2>
+            <p>ブラウザの「お気に入り（ブックマーク）」機能を利用した、クリック一つで情報を転送できる仕組みです。</p>
+
+            <h3>できること</h3>
+            <p>BCセンターの顧客詳細画面を開いた状態で、ブラウザのブックマークバーにある「Kintoneへコピー」ボタンを押すだけで、以下の動作が自動で行われます。</p>
+            <ol>
+                <li>画面上の必要な情報（氏名、住所、電話番号、アンケート回答など）を自動で読み取ります。</li>
+                <li>Kintoneの新規登録画面を自動で開き、読み取った情報を各項目にセットします。</li>
+                <li>あとは内容を確認し「保存」ボタンを押すだけです。</li>
+            </ol>
+
+            <h3>導入によるメリット</h3>
+            <ul>
+                <li><strong>作業時間の大幅短縮:</strong> 数分かかっていた転記作業が数秒で完了します。</li>
+                <li><strong>正確性の向上:</strong> 自動転記のため、入力ミスや漏れがなくなります。</li>
+                <li><strong>情報の充実:</strong> 手入力では省略しがちな細かいアンケート項目（きっかけ媒体、詳細な住所など）も漏らさず連携でき、分析に役立てられます。</li>
+            </ul>
+        </section>
+
+        <section class="safety-box">
+            <h2>安全性と仕組みの補足（API連携ではありません）</h2>
+            <p>本ツールはシステム的な裏口（API連携）を使うのではなく、人間が行う「画面を見てコピーする」という作業を、プログラムが<strong>ブラウザ画面上で代行するだけ</strong>の仕組みです。</p>
+            <ul>
+                <li><strong>API連携ではありません:</strong> 複雑なシステム間連携開発は行いません。既存の画面を人間が見るのと同じようにプログラムが見ます。</li>
+                <li><strong>一括ダウンロードではありません:</strong>
+                    顧客リストをまとめて抜き出すような機能はありません。あくまで<strong>「今、画面に表示している1人」</strong>の登録作業を補助するツールです。</li>
+                <li><strong>必要な情報のみをコピー:</strong> 業務に必要な以下の項目以外は読み取りません。これらはすべて、<strong>体験申込時にお客様ご自身が入力された情報</strong>です。
+                    <ul style="margin-top: 5px; font-size: 0.95em; color: #555;">
+                        <li>基本情報：会員番号、氏名、カナ、性別、電話番号、緊急連絡先、メールアドレス、郵便番号、住所</li>
+                        <li>アンケート情報：通う目的、きっかけ（媒体）、検索ワード、チラシ/HP閲覧有無</li>
+                        <li>希望条件：通いやすい曜日・時間、交通機関、所要時間、要望</li>
+                    </ul>
+                </li>
+                <li><strong>外部へのデータ流出ゼロ:</strong>
+                    データは「BCセンターの画面」から「Kintoneの画面」へ、<strong>お使いのブラウザ内部</strong>を通って直接貼り付けられます。外部の第三者サーバーやデータベースに情報が送信されることは技術的に一切ありません。
+                </li>
+                <li><strong>権限の変更なし:</strong>
+                    本ツールを利用するにあたり、新たなIDやパスワードの発行、権限の付与は一切不要です。既存のBCセンターおよびKintoneのログイン権限をお持ちの方のみが、従来通りのセキュリティ権限の範囲内で操作します。
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>お願い</h2>
+            <p>本ツールを作成し、実際の業務で使用する許可をいただけないでしょうか。<br>
+                まずはテスト運用として少人数で試行し、効果を確認した上で本格的な利用を検討いただければ幸いです。</p>
+
+            <p style="margin-top: 30px;">ご確認のほど、よろしくお願いいたします。</p>
+        </section>
+
+    </div>
+
+</body>
+
+</html>

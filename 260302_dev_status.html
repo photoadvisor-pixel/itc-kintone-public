@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kintone改修 対策状況（2026年3月）</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: #2c3e50;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 28px 36px 22px;
+        }
+
+        header h1 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 13px;
+            color: #aec6e8;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            background: #fff;
+            border: 1px solid #dde3ec;
+            border-top: none;
+            padding: 14px 36px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        /* ステップバッジ */
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .step-badge.done {
+            background: #e6f4ea;
+            color: #1e7e34;
+            border: 1.5px solid #a8d5b5;
+        }
+
+        .step-badge.pending {
+            background: #f5f5f5;
+            color: #999;
+            border: 1.5px solid #ddd;
+        }
+
+        .step-badge.waiting {
+            background: #fff8e1;
+            color: #b8860b;
+            border: 1.5px solid #f0d070;
+        }
+
+        .step-badge .check { font-size: 13px; }
+
+        /* フェーズ見出し */
+        .phase-header {
+            background: #f0f4f8;
+            border-left: 5px solid #2c3e50;
+            padding: 10px 16px;
+            margin: 28px 0 0;
+            font-size: 13px;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* カード */
+        .card {
+            background: #fff;
+            border: 1px solid #dde3ec;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow: hidden;
+            transition: box-shadow 0.15s;
+        }
+
+        .card:hover {
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 20px 12px;
+        }
+
+        .card-num {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: #2c3e50;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .card-title {
+            flex: 1;
+        }
+
+        .card-title h3 {
+            margin: 0 0 6px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .card-title .desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ステップライン */
+        .steps {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px 14px 62px;
+            gap: 0;
+            border-top: 1px solid #f0f2f5;
+            background: #fafbfc;
+            flex-wrap: wrap;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 120px;
+        }
+
+        .step-arrow {
+            color: #ccc;
+            font-size: 18px;
+            padding: 0 6px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        /* 備考 */
+        .card-note {
+            font-size: 12px;
+            color: #888;
+            padding: 0 20px 12px 62px;
+            background: #fafbfc;
+        }
+
+        .card-note span {
+            background: #fff3cd;
+            border: 1px solid #f0d070;
+            border-radius: 3px;
+            padding: 1px 6px;
+            color: #856404;
+        }
+
+        /* 全体ステータスバー */
+        .summary {
+            background: #fff;
+            border: 1px solid #dde3ec;
+            border-radius: 6px;
+            margin: 28px 0 6px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .summary-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .progress-bar-wrap {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .progress-bar-bg {
+            background: #eee;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #28a745, #5cb85c);
+            transition: width 0.4s;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .footer {
+            text-align: right;
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 24px;
+            padding-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 20px 20px 16px; }
+            header h1 { font-size: 18px; }
+            .legend { padding: 12px 20px; }
+            .steps { padding-left: 20px; }
+            .card-note { padding-left: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>Kintone体験者管理アプリ 改修対策状況</h1>
+        <p>更新日：2026年3月2日　／　衣笠着手 → 衣笠実装完了 → 好永さん確認</p>
+    </header>
+
+    <div class="legend">
+        <div class="legend-item">
+            <span class="step-badge done"><span class="check">✓</span> 完了</span>
+            <span>対応済み</span>
+        </div>
+        <div class="legend-item">
+            <span class="step-badge pending"><span class="check">○</span> 未着手</span>
+            <span>これから</span>
+        </div>
+        <div class="legend-item">
+            <span class="step-badge waiting"><span class="check">⏳</span> 待ち</span>
+            <span>外部データ・方針決定待ち</span>
+        </div>
+    </div>
+
+    <!-- 全体進捗 -->
+    <div class="summary">
+        <div class="summary-title">全体進捗</div>
+        <div class="progress-bar-wrap">
+            <div class="progress-bar-bg">
+                <!-- 7項目中 完了確認ステップ合計21ステップのうち 衣笠実装完了2件=4ステップ分 -->
+                <div class="progress-bar-fill" style="width: 19%;"></div>
+            </div>
+            <div class="progress-label">2 / 7 項目が実装完了（好永さん確認待ち）</div>
+        </div>
+    </div>
+
+    <!-- フェーズ1 -->
+    <div class="phase-header">フェーズ1 ― 即着手・実装可能</div>
+
+    <!-- 1. 複数選択肢CSVインポート不具合 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">1</div>
+            <div class="card-title">
+                <h3>複数選択肢のCSVインポート不具合修正</h3>
+                <p class="desc">べんりカモからインポートしても「きっかけ（媒体）」「通いやすい曜日・時間」「通う目的」「レッスンへの要望」が Kintone の一覧に表示されない不具合を修正しました。インポート前に変換ツールを通すことで正しく反映されます。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
+                <span class="step-label">原因特定済み</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 実装完了</span>
+                <span class="step-label">変換スクリプト作成</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">動作確認・承認</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：好永さん</span>　べんりカモ → Kintone のインポートを再テストする
+        </div>
+    </div>
+
+    <!-- 2. 郵便番号→住所自動取得 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">2</div>
+            <div class="card-title">
+                <h3>郵便番号 → 住所 自動取得の実装</h3>
+                <p class="desc">べんりカモから郵便番号を自動インポートすると、Kintone の「住所」欄に町域名まで自動で入力されます。プライバシー保護のため、正確な番地は入力せず、郵便番号からわかる範囲（都道府県・市区町村・町域）のみを取得します。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
+                <span class="step-label">設計完了</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 実装完了</span>
+                <span class="step-label">JSファイル作成</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">kintone登録・動作確認</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：好永さん</span>　Kintone の入力画面操作を確認する
+        </div>
+    </div>
+
+    <!-- 3. 施設名自動反映 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">3</div>
+            <div class="card-title">
+                <h3>施設名の自動反映</h3>
+                <p class="desc">会員番号の冒頭3桁（施設コード）から施設名ドロップダウンを自動セット。v12で冒頭3桁の除去は実装済みだが、施設コード↔施設名のマッピングが未完成。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
+                <span class="step-label">ロジック設計済み</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 実装完了</span>
+                <span class="step-label">鈴木様データ待ち</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">－</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：鈴木様</span>　施設コード表（3桁↔施設名）をご提供ください
+        </div>
+    </div>
+
+    <!-- フェーズ2 -->
+    <div class="phase-header">フェーズ2 ― 新機能追加（設計・合意後に着手）</div>
+
+    <!-- 4. 日時フィールド統合・曜日計算 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">4</div>
+            <div class="card-title">
+                <h3>日時フィールドの統合と曜日自動計算</h3>
+                <p class="desc">体験日・時刻を「日時」フィールドに統合し、入力値から曜日を自動算出してフィールドに表示する。現在、体験日時フィールドはスキーマ未定義。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 着手</span>
+                <span class="step-label">－</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
+                <span class="step-label">－</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">－</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：衣笠</span>　改修計画を作成する
+        </div>
+    </div>
+
+    <!-- 5. 自動採番 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">5</div>
+            <div class="card-title">
+                <h3>自動採番機能の追加（通番号・体験番号）</h3>
+                <p class="desc">通番号・体験番号フィールドの追加と自動採番の実装。鈴木様にてプラグイン対応予定。現在スキーマに未定義。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 着手</span>
+                <span class="step-label">－</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
+                <span class="step-label">－</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">－</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：衣笠</span>　改修計画を作成する
+        </div>
+    </div>
+
+    <!-- フェーズ3 -->
+    <div class="phase-header">フェーズ3 ― 方針決定が必要（要打合せ）</div>
+
+    <!-- 6. 体験クラスレベル -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">6</div>
+            <div class="card-title">
+                <h3>体験クラスレベル選択肢の整理</h3>
+                <p class="desc">施設ごとに異なるクラス体系（レベル別・目的別・ジュニア等）に対応した選択肢管理。現在は8択の固定ドロップダウンで施設別の出し分けは未実装。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 着手</span>
+                <span class="step-label">方針決定待ち</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
+                <span class="step-label">－</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">－</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：衣笠</span>　改修計画を作成する
+        </div>
+    </div>
+
+    <!-- 7. コーチマスタ運用体制 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">7</div>
+            <div class="card-title">
+                <h3>コーチマスタの運用体制</h3>
+                <p class="desc">18施設・200名超のコーチデータを管理。現在はコード修正＋スクリプト実行が必要で、現場担当者が直接更新できない状態。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 着手</span>
+                <span class="step-label">方針決定待ち</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
+                <span class="step-label">－</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
+                <span class="step-label">－</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：衣笠</span>　改修計画を作成する
+        </div>
+    </div>
+
+    <div class="footer">作成：衣笠　／　体験申込・リード管理 v2（App ID: 218）</div>
+
+</div>
+</body>
+</html>
