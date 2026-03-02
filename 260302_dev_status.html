@@ -299,9 +299,9 @@
         <div class="progress-bar-wrap">
             <div class="progress-bar-bg">
                 <!-- 7項目中 完了確認ステップ合計21ステップのうち 衣笠実装完了2件=4ステップ分 -->
-                <div class="progress-bar-fill" style="width: 19%;"></div>
+                <div class="progress-bar-fill" style="width: 71%;"></div>
             </div>
-            <div class="progress-label">2 / 7 項目が実装完了（好永さん確認待ち）</div>
+            <div class="progress-label">5 / 7 項目が実装完了（好永さん確認待ち）</div>
         </div>
     </div>
 
@@ -374,32 +374,29 @@
             <div class="card-num">3</div>
             <div class="card-title">
                 <h3>施設名の自動反映</h3>
-                <p class="desc">会員番号の冒頭3桁（施設コード）から施設名ドロップダウンを自動セット。v12で冒頭3桁の除去は実装済みだが、施設コード↔施設名のマッピングが未完成。</p>
+                <p class="desc">べんりカモからインポートすると、会員番号の先頭3桁を使って「施設マスタ」アプリを自動参照し、Kintone の「施設名」欄に反映します。</p>
             </div>
         </div>
         <div class="steps">
             <div class="step-item">
                 <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
-                <span class="step-label">ロジック設計済み</span>
+                <span class="step-label">設計完了</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
-                <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 実装完了</span>
-                <span class="step-label">鈴木様データ待ち</span>
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 実装完了</span>
+                <span class="step-label">v13作成済み</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
                 <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
-                <span class="step-label">－</span>
+                <span class="step-label">動作確認・承認</span>
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：鈴木様</span>　施設コード表（3桁↔施設名）をご提供ください
+            <span>次のアクション：好永さん</span>　Kintone の登録内容を確認する
         </div>
     </div>
-
-    <!-- フェーズ2 -->
-    <div class="phase-header">フェーズ2 ― 新機能追加（設計・合意後に着手）</div>
 
     <!-- 4. 日時フィールド統合・曜日計算 -->
     <div class="card">
@@ -407,76 +404,76 @@
             <div class="card-num">4</div>
             <div class="card-title">
                 <h3>日時フィールドの統合と曜日自動計算</h3>
-                <p class="desc">体験日・時刻を「日時」フィールドに統合し、入力値から曜日を自動算出してフィールドに表示する。現在、体験日時フィールドはスキーマ未定義。</p>
+                <p class="desc">体験日・体験時刻を「体験日時」フィールドに統合し、計算フィールドで体験曜日を自動表示するよう設定しました。既存データの移行も完了しています。</p>
             </div>
         </div>
         <div class="steps">
             <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 衣笠 着手</span>
-                <span class="step-label">－</span>
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
+                <span class="step-label">設計・フィールド定義</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
-                <span class="step-label">－</span>
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 実装完了</span>
+                <span class="step-label">フィールド統合・計算式設定</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
                 <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
-                <span class="step-label">－</span>
+                <span class="step-label">動作確認・承認</span>
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：衣笠</span>　改修計画を作成する
+            <span>次のアクション：好永さん</span>　体験日時の入力と体験曜日の自動表示を確認する
         </div>
     </div>
 
-    <!-- 5. 自動採番 -->
+    <!-- フェーズ2 -->
+    <div class="phase-header">フェーズ2 ― 方針決定が必要（要打合せ）</div>
+
+    <!-- 5. コーチマスタ運用体制 -->
     <div class="card">
         <div class="card-header">
             <div class="card-num">5</div>
             <div class="card-title">
-                <h3>自動採番機能の追加（通番号・体験番号）</h3>
-                <p class="desc">通番号・体験番号フィールドの追加と自動採番の実装。鈴木様にてプラグイン対応予定。現在スキーマに未定義。</p>
+                <h3>コーチマスタの運用体制</h3>
+                <p class="desc">コーチマスタ（App 220）とルックアップを連携し、施設コードをもとに担当コーチを選択できるようにしました。全コーチ一覧から施設名で絞り込んで選択する運用です。</p>
             </div>
         </div>
         <div class="steps">
             <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 衣笠 着手</span>
-                <span class="step-label">－</span>
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
+                <span class="step-label">設計・ルックアップ構成</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
-                <span class="step-label">－</span>
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 実装完了</span>
+                <span class="step-label">ルックアップ設定・JS対応</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
-                <span class="step-label">－</span>
+                <span class="step-badge waiting"><span class="check">⏳</span> 好永さん 確認</span>
+                <span class="step-label">運用確認・意見</span>
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：衣笠</span>　改修計画を作成する
+            <span>次のアクション：好永さん</span>　コーチ選択の運用方法について意見をもらう
         </div>
     </div>
 
-    <!-- フェーズ3 -->
-    <div class="phase-header">フェーズ3 ― 方針決定が必要（要打合せ）</div>
-
-    <!-- 6. 体験クラスレベル -->
+    <!-- 6. 自動採番 -->
     <div class="card">
         <div class="card-header">
             <div class="card-num">6</div>
             <div class="card-title">
-                <h3>体験クラスレベル選択肢の整理</h3>
-                <p class="desc">施設ごとに異なるクラス体系（レベル別・目的別・ジュニア等）に対応した選択肢管理。現在は8択の固定ドロップダウンで施設別の出し分けは未実装。</p>
+                <h3>自動採番機能の追加（通番号・体験番号）</h3>
+                <p class="desc">採番形式・年度リセットの有無・プラグイン選定など、実装前に方針の確認が必要です。プラグインを使えば設定のみで対応可能なため、鈴木さん・好永さんと方向性を決定してから着手します。</p>
             </div>
         </div>
         <div class="steps">
             <div class="step-item">
                 <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 着手</span>
-                <span class="step-label">方針決定待ち</span>
+                <span class="step-label">方針協議待ち</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
@@ -490,23 +487,23 @@
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：衣笠</span>　改修計画を作成する
+            <span>次のアクション：鈴木さん・好永さん</span>　採番形式・プラグイン選定について方針を確認する
         </div>
     </div>
 
-    <!-- 7. コーチマスタ運用体制 -->
+    <!-- 7. 体験クラスレベル -->
     <div class="card">
         <div class="card-header">
             <div class="card-num">7</div>
             <div class="card-title">
-                <h3>コーチマスタの運用体制</h3>
-                <p class="desc">18施設・200名超のコーチデータを管理。現在はコード修正＋スクリプト実行が必要で、現場担当者が直接更新できない状態。</p>
+                <h3>体験クラスレベル選択肢の整理</h3>
+                <p class="desc">体験クラスのマスターを新たに作成するか、既存の選択肢を柔軟に変更できる仕組みにするかを含め、方針の協議が必要です。衣笠・鈴木さん・好永さんの3名で方向性を決定します。</p>
             </div>
         </div>
         <div class="steps">
             <div class="step-item">
                 <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 着手</span>
-                <span class="step-label">方針決定待ち</span>
+                <span class="step-label">3名協議待ち</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
@@ -520,7 +517,7 @@
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：衣笠</span>　改修計画を作成する
+            <span>次のアクション：衣笠・鈴木さん・好永さん</span>　3名で方針を協議する
         </div>
     </div>
 
