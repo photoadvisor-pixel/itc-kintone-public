@@ -275,7 +275,7 @@
 
     <header>
         <h1>Kintone体験者管理アプリ 改修対策状況</h1>
-        <p>更新日：2026年3月2日　／　衣笠着手 → 衣笠実装完了 → 好永さん確認</p>
+        <p>更新日：2026年3月4日　／　衣笠着手 → 衣笠実装完了 → 好永さん確認</p>
     </header>
 
     <div class="legend">
@@ -299,9 +299,9 @@
         <div class="progress-bar-wrap">
             <div class="progress-bar-bg">
                 <!-- 7項目中 完了確認ステップ合計21ステップのうち 衣笠実装完了2件=4ステップ分 -->
-                <div class="progress-bar-fill" style="width: 71%;"></div>
+                <div class="progress-bar-fill" style="width: 86%;"></div>
             </div>
-            <div class="progress-label">5 / 7 項目が実装完了（好永さん確認待ち）</div>
+            <div class="progress-label">6 / 7 項目が衣笠実装完了（自動採番はフェーズ3で検討）</div>
         </div>
     </div>
 
@@ -428,13 +428,43 @@
         </div>
     </div>
 
-    <!-- フェーズ2 -->
-    <div class="phase-header">フェーズ2 ― 方針決定が必要（要打合せ）</div>
-
-    <!-- 5. コーチマスタ運用体制 -->
+    <!-- 5. 体験クラスレベル（フェーズ1に移動） -->
     <div class="card">
         <div class="card-header">
             <div class="card-num">5</div>
+            <div class="card-title">
+                <h3>体験クラスレベル選択肢の整理</h3>
+                <p class="desc">ルックアップフィールドを使って体験クラスレベルの選択肢をマスタアプリから取得する仕組みを実装しました。管理者がマスタを更新するだけで選択肢を柔軟に変更できます。</p>
+            </div>
+        </div>
+        <div class="steps">
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 着手</span>
+                <span class="step-label">設計・方針確認</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge done"><span class="check">✓</span> 衣笠 実装完了</span>
+                <span class="step-label">ルックアップ実装済み</span>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-badge waiting"><span class="check">⏳</span> 好永さん 確認</span>
+                <span class="step-label">動作確認待ち</span>
+            </div>
+        </div>
+        <div class="card-note">
+            <span>次のアクション：好永さん</span>　ルックアップで実装した選択肢の動作を確認し、意見をもらう
+        </div>
+    </div>
+
+    <!-- フェーズ2 -->
+    <div class="phase-header">フェーズ2 ― 運用確認・意見収集</div>
+
+    <!-- 6. コーチマスタ運用体制 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-num">6</div>
             <div class="card-title">
                 <h3>コーチマスタの運用体制</h3>
                 <p class="desc">コーチマスタ（App 220）とルックアップを連携し、施設コードをもとに担当コーチを選択できるようにしました。全コーチ一覧から施設名で絞り込んで選択する運用です。</p>
@@ -453,57 +483,30 @@
             <div class="step-arrow">→</div>
             <div class="step-item">
                 <span class="step-badge waiting"><span class="check">⏳</span> 好永さん 確認</span>
-                <span class="step-label">運用確認・意見</span>
+                <span class="step-label">動作確認・意見依頼</span>
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：好永さん</span>　コーチ選択の運用方法について意見をもらう
+            <span>次のアクション：好永さん</span>　コーチ選択の動作を確認し、運用方法について意見をもらう
         </div>
     </div>
 
-    <!-- 6. 自動採番 -->
-    <div class="card">
-        <div class="card-header">
-            <div class="card-num">6</div>
-            <div class="card-title">
-                <h3>自動採番機能の追加（通番号・体験番号）</h3>
-                <p class="desc">採番形式・年度リセットの有無・プラグイン選定など、実装前に方針の確認が必要です。プラグインを使えば設定のみで対応可能なため、鈴木さん・好永さんと方向性を決定してから着手します。</p>
-            </div>
-        </div>
-        <div class="steps">
-            <div class="step-item">
-                <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 着手</span>
-                <span class="step-label">方針協議待ち</span>
-            </div>
-            <div class="step-arrow">→</div>
-            <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 衣笠 実装完了</span>
-                <span class="step-label">－</span>
-            </div>
-            <div class="step-arrow">→</div>
-            <div class="step-item">
-                <span class="step-badge pending"><span class="check">○</span> 好永さん 確認</span>
-                <span class="step-label">－</span>
-            </div>
-        </div>
-        <div class="card-note">
-            <span>次のアクション：鈴木さん・好永さん</span>　採番形式・プラグイン選定について方針を確認する
-        </div>
-    </div>
+    <!-- フェーズ3 -->
+    <div class="phase-header">フェーズ3 ― 将来的な検討課題</div>
 
-    <!-- 7. 体験クラスレベル -->
+    <!-- 7. 自動採番 -->
     <div class="card">
         <div class="card-header">
             <div class="card-num">7</div>
             <div class="card-title">
-                <h3>体験クラスレベル選択肢の整理</h3>
-                <p class="desc">体験クラスのマスターを新たに作成するか、既存の選択肢を柔軟に変更できる仕組みにするかを含め、方針の協議が必要です。衣笠・鈴木さん・好永さんの3名で方向性を決定します。</p>
+                <h3>自動採番機能の追加（通番号・体験番号）</h3>
+                <p class="desc">初期設定では行わないことになりました。採番形式・年度リセットの有無・プラグイン選定など、将来的に必要になった際に改めて検討します。</p>
             </div>
         </div>
         <div class="steps">
             <div class="step-item">
-                <span class="step-badge waiting"><span class="check">⏳</span> 衣笠 着手</span>
-                <span class="step-label">3名協議待ち</span>
+                <span class="step-badge pending"><span class="check">○</span> 衣笠 着手</span>
+                <span class="step-label">将来的に検討</span>
             </div>
             <div class="step-arrow">→</div>
             <div class="step-item">
@@ -517,7 +520,7 @@
             </div>
         </div>
         <div class="card-note">
-            <span>次のアクション：衣笠・鈴木さん・好永さん</span>　3名で方針を協議する
+            <span>初期設定では対象外</span>　将来的に必要になった際にフェーズ3として着手する
         </div>
     </div>
 
